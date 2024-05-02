@@ -7,6 +7,7 @@ public class Graph : MonoBehaviour
 {
     [SerializeField] GameObject pointPrefab;
     [SerializeField, Range(2, 100)] int resolution;
+    Transform[] points;
     private Vector3 position = Vector3.zero;
     private float scale = .2f;
     private float xRange = 1;
@@ -14,11 +15,12 @@ public class Graph : MonoBehaviour
     void Start()
     {
         float step = (xRange * 2 - scale) / (resolution - 1);
+        points = new Transform[resolution];
         for (int i = 0; i < resolution; i++)
         {
-            Transform point = Instantiate(pointPrefab.transform);
+            Transform point = points[i] = Instantiate(pointPrefab.transform);
             position.x = i * step + scale * 0.5f - xRange;
-            position.y = position.x * position.x;
+            //position.y = position.x * position.x;
             point.localPosition = position;
             point.localScale = Vector3.one * scale;
             point.SetParent(transform, false);
@@ -28,6 +30,11 @@ public class Graph : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-
+        for (int i = 0; i < points.Length; i++)
+        {
+            Vector3 pos = points[i].position;
+            pos.y = Mathf.Sin(Mathf.PI * pos.x + Time.time);
+            points[i].position = pos;
+        }
     }
 }
