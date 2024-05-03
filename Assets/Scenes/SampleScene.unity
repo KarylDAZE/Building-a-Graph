@@ -205,8 +205,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 330585543}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 1, z: -5}
+  m_LocalRotation: {x: 0.0014662798, y: 0.9454449, z: -0.325751, w: 0.004255323}
+  m_LocalPosition: {x: 0, y: 2.6134875, z: 3.6585402}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -453,7 +453,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   pointPrefab: {fileID: 8714168210235829763, guid: bb6028f4430029f48957babe7b8f782e,
     type: 3}
-  resolution: 20
+  resolution: 50
   functionName: 1
 --- !u!4 &1052265973
 Transform:
