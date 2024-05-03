@@ -6,37 +6,47 @@ public static class FunctionLibrary
     public enum FunctionName { Zero, Wave, MultiWave, Ripple }
     private static Function[] functions = { Zero, Wave, MultiWave, Ripple };
 
-    public delegate float Function(float x, float z, float t);
+    public delegate Vector3 Function(float u, float v, float t);
     public static Function GetFunction(FunctionName name)
     {
         return functions[(int)name];
     }
 
-    public static float Zero(float x, float z, float t)
+    public static Vector3 Zero(float x, float z, float t)
     {
-        return 0;
+        return Vector3.zero;
     }
 
-    public static float Wave(float x, float z, float t)
+    public static Vector3 Wave(float u, float v, float t)
     {
-        return Sin(PI * (x + z + t));
+        Vector3 p;
+        p.x = u;
+        p.y = Sin(PI * (u + v + t));
+        p.z = v;
+        return p;
     }
 
-    public static float MultiWave(float x, float z, float t)
+    public static Vector3 MultiWave(float u, float v, float t)
     {
-        float y = Sin(PI * (x + t));
-        //Division requires a bit more work than multiplication
-        //And constant expressions are already reduced to a single number by the compiler
-        y += Sin(2f * PI * (x + t)) * 0.5f;
-        y += Sin(4f * PI * (z + t)) * 0.25f;
-        return y / (1 + 0.5f + 0.25f);
+        Vector3 p;
+        p.x = u;
+        p.y = Sin(PI * (u + t));
+        p.y += Sin(2f * PI * (u + t)) * 0.5f;
+        p.y += Sin(4f * PI * (v + t)) * 0.25f;
+        p.y /= (1 + 0.5f + 0.25f);
+        p.z = v;
+        return p;
+
     }
 
-    public static float Ripple(float x, float z, float t)
+    public static Vector3 Ripple(float u, float v, float t)
     {
-        float d = Sqrt(x * x + z * z);
-        float y = Sin(PI * (4f * d - t)) / (1f + 10f * d);
-        return y;
+        Vector3 p;
+        float d = Sqrt(u * u + v * v);
+        p.x = u;
+        p.y = Sin(PI * (4f * d - t)) / (1f + 10f * d);
+        p.z = v;
+        return p;
     }
 
 }
