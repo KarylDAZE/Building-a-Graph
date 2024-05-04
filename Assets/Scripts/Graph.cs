@@ -22,6 +22,7 @@ public class Graph : MonoBehaviour
     {
         function = FunctionLibrary.GetFunction(functionName);
         points = new Transform[resolution * resolution];
+        scale = 2f / resolution;
         for (int i = 0; i < resolution * resolution; i++)
         {
             Transform point = points[i] = Instantiate(pointPrefab.transform);
