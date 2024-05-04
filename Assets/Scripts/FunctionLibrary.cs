@@ -3,13 +3,23 @@ using UnityEngine;
 using static UnityEngine.Mathf;
 public static class FunctionLibrary
 {
-    public enum FunctionName { Zero, Wave, MultiWave, Ripple, Sphere, Torus }
-    private static Function[] functions = { Zero, Wave, MultiWave, Ripple, Sphere, Torus };
+    public enum FunctionName { Wave, MultiWave, Ripple, Sphere, Torus }
+    private static Function[] functions = { Wave, MultiWave, Ripple, Sphere, Torus };
 
     public delegate Vector3 Function(float u, float v, float t);
     public static Function GetFunction(FunctionName name)
     {
         return functions[(int)name];
+    }
+
+    public static FunctionName GetNextFunction(FunctionName name)
+    {
+        return (int)name < functions.Length - 1 ? name + 1 : 0;
+    }
+
+    public static Vector3 Morph(float u, float v, float t, Function from, Function to, float progress)
+    {
+        return Vector3.LerpUnclamped(from(u, v, t), to(u, v, t), SmoothStep(0f, 1f, progress));
     }
 
     public static Vector3 Zero(float x, float z, float t)
