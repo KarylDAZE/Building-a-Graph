@@ -26,17 +26,20 @@ public class Graph : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        Vector3 position = Vector3.zero;
+        float v = scale * 0.5f - xRange;
         FunctionLibrary.Function f = FunctionLibrary.GetFunction(functionName);
         float step = (xRange * 2 - scale) / (resolution - 1);
-        for (int u = 0; u < resolution; u++)
+        for (int i = 0, x = 0, z = 0; i < points.Length; i++, x++)
         {
-            position.x = u * step + scale * 0.5f - xRange;
-            for (int v = 0; v < resolution; v++)
+            if (resolution == x)
             {
-                position.z = v * step + scale * 0.5f - xRange;
-                points[u * resolution + v].position = f(position.x, position.z, Time.time);
+                x = 0;
+                z++;
+                v = z * step + scale * 0.5f - xRange;
             }
+            float u = x * step + scale * 0.5f - xRange;
+
+            points[i].position = f(u, v, Time.time);
         }
     }
 }
