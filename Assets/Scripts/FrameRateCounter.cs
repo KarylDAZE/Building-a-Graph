@@ -4,15 +4,18 @@ using TMPro;
 public class FrameRateCounter : MonoBehaviour
 {
     [SerializeField]
-    TextMeshProUGUI display;
+    private TextMeshProUGUI display;
 
-    public enum playMode { FPS, MS }
-    [SerializeField] playMode displayMode = playMode.FPS;
+    public enum PlayMode { FPS, MS }
+    [SerializeField]
+    private PlayMode displayMode = PlayMode.FPS;
 
     [SerializeField, Range(0.1f, 2f)]
     private float sampleDuration = 1f;
+
     private int frames = 0;
     private float duration = 0, bestDuration = float.MaxValue, worstDuration = 0;
+
     void Start()
     {
         display = gameObject.GetComponent<TextMeshProUGUI>();
@@ -28,10 +31,10 @@ public class FrameRateCounter : MonoBehaviour
         {
             switch (displayMode)
             {
-                case playMode.FPS:
+                case PlayMode.FPS:
                     display.SetText("FPS\n{0:0}\n{1:0}\n{2:0}", 1f / bestDuration, frames / duration, 1f / worstDuration);
                     break;
-                case playMode.MS:
+                case PlayMode.MS:
                     display.SetText(
                         "MS\n{0:1}\n{1:1}\n{2:1}",
                         1000f * bestDuration,

@@ -1,7 +1,4 @@
 using System;
-using System.Collections;
-using System.Collections.Generic;
-using Unity.Collections;
 using UnityEngine;
 
 public class Graph : MonoBehaviour
@@ -9,15 +6,15 @@ public class Graph : MonoBehaviour
     [SerializeField] GameObject pointPrefab;
     [SerializeField, Range(2, 100)] int resolution;
     [SerializeField] FunctionLibrary.FunctionName functionName, transitionFunctionName;
-    private FunctionLibrary.Function function;
     [SerializeField, Min(0)] float funtionDuration = 5;
     [SerializeField, Min(0)] float transitionDuration = 1;
+    private FunctionLibrary.Function function;
     private bool isTransitioning = false;
-    Transform[] points;
+    private Transform[] points;
     private float scale = .1f;
     private float xRange = 1;
-    float duration = 0;
-    // Start is called before the first frame update
+    private float duration = 0;
+
     void Start()
     {
         function = FunctionLibrary.GetFunction(functionName);
@@ -31,7 +28,6 @@ public class Graph : MonoBehaviour
         }
     }
 
-    // Update is called once per frame
     void Update()
     {
         duration += Time.deltaTime;

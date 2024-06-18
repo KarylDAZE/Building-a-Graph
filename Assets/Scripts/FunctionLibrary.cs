@@ -1,12 +1,12 @@
-using NUnit.Framework;
 using UnityEngine;
 using static UnityEngine.Mathf;
+
 public static class FunctionLibrary
 {
     public enum FunctionName { Wave, MultiWave, Ripple, Sphere, Torus }
-    private static Function[] functions = { Wave, MultiWave, Ripple, Sphere, Torus };
-
     public delegate Vector3 Function(float u, float v, float t);
+    private static readonly Function[] functions = { Wave, MultiWave, Ripple, Sphere, Torus };
+
     public static Function GetFunction(FunctionName name)
     {
         return functions[(int)name];
@@ -43,10 +43,9 @@ public static class FunctionLibrary
         p.y = Sin(PI * (u + t));
         p.y += Sin(2f * PI * (u + t)) * 0.5f;
         p.y += Sin(4f * PI * (v + t)) * 0.25f;
-        p.y /= (1 + 0.5f + 0.25f);
+        p.y /= 1 + 0.5f + 0.25f;
         p.z = v;
         return p;
-
     }
 
     public static Vector3 Ripple(float u, float v, float t)
